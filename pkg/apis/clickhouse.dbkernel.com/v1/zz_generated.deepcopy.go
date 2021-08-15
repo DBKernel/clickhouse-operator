@@ -1,0 +1,1 @@
+../../../../generator/github.com/dbkernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1/zz_generated.deepcopy.go
