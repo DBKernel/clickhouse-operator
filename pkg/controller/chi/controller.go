@@ -32,17 +32,17 @@ import (
 	"k8s.io/client-go/tools/cache"
 	"k8s.io/client-go/tools/record"
 
-	"github.com/altinity/queue"
+	"github.com/DBKernel/queue"
 
-	log "github.com/altinity/clickhouse-operator/pkg/announcer"
-	chi "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
-	"github.com/altinity/clickhouse-operator/pkg/apis/metrics"
-	"github.com/altinity/clickhouse-operator/pkg/chop"
-	chopclientset "github.com/altinity/clickhouse-operator/pkg/client/clientset/versioned"
-	chopclientsetscheme "github.com/altinity/clickhouse-operator/pkg/client/clientset/versioned/scheme"
-	chopinformers "github.com/altinity/clickhouse-operator/pkg/client/informers/externalversions"
-	chopmodels "github.com/altinity/clickhouse-operator/pkg/model"
-	"github.com/altinity/clickhouse-operator/pkg/util"
+	log "github.com/DBKernel/clickhouse-operator/pkg/announcer"
+	chi "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
+	"github.com/DBKernel/clickhouse-operator/pkg/apis/metrics"
+	"github.com/DBKernel/clickhouse-operator/pkg/chop"
+	chopclientset "github.com/DBKernel/clickhouse-operator/pkg/client/clientset/versioned"
+	chopclientsetscheme "github.com/DBKernel/clickhouse-operator/pkg/client/clientset/versioned/scheme"
+	chopinformers "github.com/DBKernel/clickhouse-operator/pkg/client/informers/externalversions"
+	chopmodels "github.com/DBKernel/clickhouse-operator/pkg/model"
+	"github.com/DBKernel/clickhouse-operator/pkg/util"
 )
 
 // NewController creates instance of Controller

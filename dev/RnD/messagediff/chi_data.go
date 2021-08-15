@@ -1,7 +1,7 @@
 package main
 
 import (
-	. "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
+	. "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
 	corev1 "k8s.io/api/core/v1"
 )
 

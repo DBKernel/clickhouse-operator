@@ -21,7 +21,7 @@ package fake
 import (
 	"context"
 
-	clickhousealtinitycomv1 "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
+	clickhousedbkernelcomv1 "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	labels "k8s.io/apimachinery/pkg/labels"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -36,25 +36,25 @@ type FakeClickHouseInstallations struct {
 	ns   string
 }
 
-var clickhouseinstallationsResource = schema.GroupVersionResource{Group: "clickhouse.altinity.com", Version: "v1", Resource: "clickhouseinstallations"}
+var clickhouseinstallationsResource = schema.GroupVersionResource{Group: "clickhouse.dbkernel.com", Version: "v1", Resource: "clickhouseinstallations"}
 
-var clickhouseinstallationsKind = schema.GroupVersionKind{Group: "clickhouse.altinity.com", Version: "v1", Kind: "ClickHouseInstallation"}
+var clickhouseinstallationsKind = schema.GroupVersionKind{Group: "clickhouse.dbkernel.com", Version: "v1", Kind: "ClickHouseInstallation"}
 
 // Get takes name of the clickHouseInstallation, and returns the corresponding clickHouseInstallation object, and an error if there is any.
-func (c *FakeClickHouseInstallations) Get(ctx context.Context, name string, options v1.GetOptions) (result *clickhousealtinitycomv1.ClickHouseInstallation, err error) {
+func (c *FakeClickHouseInstallations) Get(ctx context.Context, name string, options v1.GetOptions) (result *clickhousedbkernelcomv1.ClickHouseInstallation, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewGetAction(clickhouseinstallationsResource, c.ns, name), &clickhousealtinitycomv1.ClickHouseInstallation{})
+		Invokes(testing.NewGetAction(clickhouseinstallationsResource, c.ns, name), &clickhousedbkernelcomv1.ClickHouseInstallation{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*clickhousealtinitycomv1.ClickHouseInstallation), err
+	return obj.(*clickhousedbkernelcomv1.ClickHouseInstallation), err
 }
 
 // List takes label and field selectors, and returns the list of ClickHouseInstallations that match those selectors.
-func (c *FakeClickHouseInstallations) List(ctx context.Context, opts v1.ListOptions) (result *clickhousealtinitycomv1.ClickHouseInstallationList, err error) {
+func (c *FakeClickHouseInstallations) List(ctx context.Context, opts v1.ListOptions) (result *clickhousedbkernelcomv1.ClickHouseInstallationList, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewListAction(clickhouseinstallationsResource, clickhouseinstallationsKind, c.ns, opts), &clickhousealtinitycomv1.ClickHouseInstallationList{})
+		Invokes(testing.NewListAction(clickhouseinstallationsResource, clickhouseinstallationsKind, c.ns, opts), &clickhousedbkernelcomv1.ClickHouseInstallationList{})
 
 	if obj == nil {
 		return nil, err
@@ -64,8 +64,8 @@ func (c *FakeClickHouseInstallations) List(ctx context.Context, opts v1.ListOpti
 	if label == nil {
 		label = labels.Everything()
 	}
-	list := &clickhousealtinitycomv1.ClickHouseInstallationList{ListMeta: obj.(*clickhousealtinitycomv1.ClickHouseInstallationList).ListMeta}
-	for _, item := range obj.(*clickhousealtinitycomv1.ClickHouseInstallationList).Items {
+	list := &clickhousedbkernelcomv1.ClickHouseInstallationList{ListMeta: obj.(*clickhousedbkernelcomv1.ClickHouseInstallationList).ListMeta}
+	for _, item := range obj.(*clickhousedbkernelcomv1.ClickHouseInstallationList).Items {
 		if label.Matches(labels.Set(item.Labels)) {
 			list.Items = append(list.Items, item)
 		}
@@ -81,31 +81,31 @@ func (c *FakeClickHouseInstallations) Watch(ctx context.Context, opts v1.ListOpt
 }
 
 // Create takes the representation of a clickHouseInstallation and creates it.  Returns the server's representation of the clickHouseInstallation, and an error, if there is any.
-func (c *FakeClickHouseInstallations) Create(ctx context.Context, clickHouseInstallation *clickhousealtinitycomv1.ClickHouseInstallation, opts v1.CreateOptions) (result *clickhousealtinitycomv1.ClickHouseInstallation, err error) {
+func (c *FakeClickHouseInstallations) Create(ctx context.Context, clickHouseInstallation *clickhousedbkernelcomv1.ClickHouseInstallation, opts v1.CreateOptions) (result *clickhousedbkernelcomv1.ClickHouseInstallation, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewCreateAction(clickhouseinstallationsResource, c.ns, clickHouseInstallation), &clickhousealtinitycomv1.ClickHouseInstallation{})
+		Invokes(testing.NewCreateAction(clickhouseinstallationsResource, c.ns, clickHouseInstallation), &clickhousedbkernelcomv1.ClickHouseInstallation{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*clickhousealtinitycomv1.ClickHouseInstallation), err
+	return obj.(*clickhousedbkernelcomv1.ClickHouseInstallation), err
 }
 
 // Update takes the representation of a clickHouseInstallation and updates it. Returns the server's representation of the clickHouseInstallation, and an error, if there is any.
-func (c *FakeClickHouseInstallations) Update(ctx context.Context, clickHouseInstallation *clickhousealtinitycomv1.ClickHouseInstallation, opts v1.UpdateOptions) (result *clickhousealtinitycomv1.ClickHouseInstallation, err error) {
+func (c *FakeClickHouseInstallations) Update(ctx context.Context, clickHouseInstallation *clickhousedbkernelcomv1.ClickHouseInstallation, opts v1.UpdateOptions) (result *clickhousedbkernelcomv1.ClickHouseInstallation, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewUpdateAction(clickhouseinstallationsResource, c.ns, clickHouseInstallation), &clickhousealtinitycomv1.ClickHouseInstallation{})
+		Invokes(testing.NewUpdateAction(clickhouseinstallationsResource, c.ns, clickHouseInstallation), &clickhousedbkernelcomv1.ClickHouseInstallation{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*clickhousealtinitycomv1.ClickHouseInstallation), err
+	return obj.(*clickhousedbkernelcomv1.ClickHouseInstallation), err
 }
 
 // Delete takes name of the clickHouseInstallation and deletes it. Returns an error if one occurs.
 func (c *FakeClickHouseInstallations) Delete(ctx context.Context, name string, opts v1.DeleteOptions) error {
 	_, err := c.Fake.
-		Invokes(testing.NewDeleteAction(clickhouseinstallationsResource, c.ns, name), &clickhousealtinitycomv1.ClickHouseInstallation{})
+		Invokes(testing.NewDeleteAction(clickhouseinstallationsResource, c.ns, name), &clickhousedbkernelcomv1.ClickHouseInstallation{})
 
 	return err
 }
@@ -114,17 +114,17 @@ func (c *FakeClickHouseInstallations) Delete(ctx context.Context, name string, o
 func (c *FakeClickHouseInstallations) DeleteCollection(ctx context.Context, opts v1.DeleteOptions, listOpts v1.ListOptions) error {
 	action := testing.NewDeleteCollectionAction(clickhouseinstallationsResource, c.ns, listOpts)
 
-	_, err := c.Fake.Invokes(action, &clickhousealtinitycomv1.ClickHouseInstallationList{})
+	_, err := c.Fake.Invokes(action, &clickhousedbkernelcomv1.ClickHouseInstallationList{})
 	return err
 }
 
 // Patch applies the patch and returns the patched clickHouseInstallation.
-func (c *FakeClickHouseInstallations) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *clickhousealtinitycomv1.ClickHouseInstallation, err error) {
+func (c *FakeClickHouseInstallations) Patch(ctx context.Context, name string, pt types.PatchType, data []byte, opts v1.PatchOptions, subresources ...string) (result *clickhousedbkernelcomv1.ClickHouseInstallation, err error) {
 	obj, err := c.Fake.
-		Invokes(testing.NewPatchSubresourceAction(clickhouseinstallationsResource, c.ns, name, pt, data, subresources...), &clickhousealtinitycomv1.ClickHouseInstallation{})
+		Invokes(testing.NewPatchSubresourceAction(clickhouseinstallationsResource, c.ns, name, pt, data, subresources...), &clickhousedbkernelcomv1.ClickHouseInstallation{})
 
 	if obj == nil {
 		return nil, err
 	}
-	return obj.(*clickhousealtinitycomv1.ClickHouseInstallation), err
+	return obj.(*clickhousedbkernelcomv1.ClickHouseInstallation), err
 }

@@ -21,10 +21,10 @@ import (
 
 	"github.com/MakeNowJust/heredoc"
 
-	log "github.com/altinity/clickhouse-operator/pkg/announcer"
-	chop "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
-	"github.com/altinity/clickhouse-operator/pkg/model/clickhouse"
-	"github.com/altinity/clickhouse-operator/pkg/util"
+	log "github.com/DBKernel/clickhouse-operator/pkg/announcer"
+	chop "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
+	"github.com/DBKernel/clickhouse-operator/pkg/model/clickhouse"
+	"github.com/DBKernel/clickhouse-operator/pkg/util"
 )
 
 const (
@@ -150,10 +150,10 @@ func (s *Schemer) getCreateDistributedObjectsContext(ctx context.Context, host *
 	cluster_tables := fmt.Sprintf("remote('%s', system, tables)", strings.Join(hosts, ","))
 
 	sqlDBs := heredoc.Doc(strings.ReplaceAll(`
-		SELECT DISTINCT 
-			database AS name, 
+		SELECT DISTINCT
+			database AS name,
 			concat('CREATE DATABASE IF NOT EXISTS "', name, '"') AS create_query
-		FROM 
+		FROM
 		(
 			SELECT DISTINCT arrayJoin([database, extract(engine_full, 'Distributed\\([^,]+, *\'?([^,\']+)\'?, *[^,]+')]) database
 			FROM cluster('all-sharded', system.tables) tables
@@ -164,12 +164,12 @@ func (s *Schemer) getCreateDistributedObjectsContext(ctx context.Context, host *
 		cluster_tables,
 	))
 	sqlTables := heredoc.Doc(strings.ReplaceAll(`
-		SELECT DISTINCT 
-			concat(database,'.', name) as name, 
+		SELECT DISTINCT
+			concat(database,'.', name) as name,
 			replaceRegexpOne(create_table_query, 'CREATE (TABLE|VIEW|MATERIALIZED VIEW|DICTIONARY)', 'CREATE \\1 IF NOT EXISTS')
-		FROM 
+		FROM
 		(
-			SELECT 
+			SELECT
 			    database, name,
 				create_table_query,
 				2 AS order
@@ -177,13 +177,13 @@ func (s *Schemer) getCreateDistributedObjectsContext(ctx context.Context, host *
 			WHERE engine = 'Distributed'
 			SETTINGS skip_unavailable_shards = 1
 			UNION ALL
-			SELECT 
-				extract(engine_full, 'Distributed\\([^,]+, *\'?([^,\']+)\'?, *[^,]+') AS database, 
+			SELECT
+				extract(engine_full, 'Distributed\\([^,]+, *\'?([^,\']+)\'?, *[^,]+') AS database,
 				extract(engine_full, 'Distributed\\([^,]+, [^,]+, *\'?([^,\\\')]+)') AS name,
 				t.create_table_query,
 				1 AS order
 			FROM cluster('all-sharded', system.tables) tables
-			LEFT JOIN (SELECT distinct database, name, create_table_query 
+			LEFT JOIN (SELECT distinct database, name, create_table_query
 			             FROM cluster('all-sharded', system.tables) SETTINGS skip_unavailable_shards = 1)  t USING (database, name)
 			WHERE engine = 'Distributed' AND t.create_table_query != ''
 			SETTINGS skip_unavailable_shards = 1
@@ -257,8 +257,8 @@ func (s *Schemer) getCreateReplicaObjectsContext(ctx context.Context, host *chop
 	system_tables := fmt.Sprintf("remote('%s', system, tables)", strings.Join(replicas, ","))
 
 	sqlDBs := heredoc.Doc(strings.ReplaceAll(`
-		SELECT DISTINCT 
-			database AS name, 
+		SELECT DISTINCT
+			database AS name,
 			concat('CREATE DATABASE IF NOT EXISTS "', name, '"') AS create_db_query
 		FROM system.tables
 		WHERE database != 'system'
@@ -266,8 +266,8 @@ func (s *Schemer) getCreateReplicaObjectsContext(ctx context.Context, host *chop
 		"system.tables", system_tables,
 	))
 	sqlTables := heredoc.Doc(strings.ReplaceAll(`
-		SELECT DISTINCT 
-			name, 
+		SELECT DISTINCT
+			name,
 			replaceRegexpOne(create_table_query, 'CREATE (TABLE|VIEW|MATERIALIZED VIEW|DICTIONARY)', 'CREATE \\1 IF NOT EXISTS')
 		FROM system.tables
 		WHERE database != 'system' and create_table_query != '' and name not like '.inner.%'
@@ -287,7 +287,7 @@ func (s *Schemer) hostGetDropTablesContext(ctx context.Context, host *chop.ChiHo
 	// See https://clickhouse.yandex/docs/en/query_language/create/
 	sql := heredoc.Doc(`
 		SELECT
-			distinct name, 
+			distinct name,
 			concat('DROP TABLE IF EXISTS "', database, '"."', name, '"') AS drop_db_query
 		FROM system.tables
 		WHERE engine like 'Replicated%'`,

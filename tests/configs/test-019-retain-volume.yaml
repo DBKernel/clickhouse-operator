@@ -1,11 +1,10 @@
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: "test-019-retain-volume"
   labels:
     test: test
 spec:
-
   useTemplates:
     - name: clickhouse-version
   configuration:
@@ -14,9 +13,9 @@ spec:
         - host: zookeeper
           port: 2181
     clusters:
-    - name: simple
-      layout:
-        shardsCount: 1
+      - name: simple
+        layout:
+          shardsCount: 1
   defaults:
     templates:
       volumeClaimTemplate: default

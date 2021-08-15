@@ -18,9 +18,9 @@ import (
 	"flag"
 	kube "k8s.io/client-go/kubernetes"
 
-	log "github.com/altinity/clickhouse-operator/pkg/announcer"
-	"github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
-	chopclientset "github.com/altinity/clickhouse-operator/pkg/client/clientset/versioned"
+	log "github.com/DBKernel/clickhouse-operator/pkg/announcer"
+	"github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
+	chopclientset "github.com/DBKernel/clickhouse-operator/pkg/client/clientset/versioned"
 )
 
 // CHOp defines ClickHouse Operator

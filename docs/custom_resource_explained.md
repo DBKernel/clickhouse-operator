@@ -3,10 +3,10 @@
 Let's describe in details ClickHouse [Custom Resource][custom-resource] \
 Full example is available in [99-clickhouseinstallation-max.yaml][99-clickhouseinstallation-max.yaml] file. \
 The best way to work with this doc is to open [99-clickhouseinstallation-max.yaml][99-clickhouseinstallation-max.yaml] in separate tab
-and look into it along with reading this explanation.  
+and look into it along with reading this explanation.
 
 ```yaml
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: "clickhouse-installation-test"
@@ -14,12 +14,12 @@ metadata:
 Create resource of `kind: "ClickHouseInstallation"` named as `"clickhouse-installation-max"`.
 Accessible with `kubectl` as:
 ```bash
-kubectl get clickhouseinstallations.clickhouse.altinity.com 
+kubectl get clickhouseinstallations.clickhouse.dbkernel.com
 ```
 ```text
 NAME                           AGE
 clickhouse-installation-max   23h
-``` 
+```
 
 ## .spec.defaults
 ```yaml
@@ -36,13 +36,13 @@ clickhouse-installation-max   23h
 `.spec.defaults` section represents default values for sections below.
   - `.spec.defaults.replicasUseFQDN` - should replicas be specified by FQDN in `<host></host>`
   - `.spec.defaults.distributedDDL` - reference to `<yandex><distributed_ddl></distributed_ddl></yandex>`
-  - `.spec.defaults.templates` would be used everywhere where `templates` is needed.  
+  - `.spec.defaults.templates` would be used everywhere where `templates` is needed.
 
 ## .spec.configuration
 ```yaml
   configuration:
 ```
-`.spec.configuration` section represents sources for ClickHouse configuration files. Be it users, remote servers and etc configuration files. 
+`.spec.configuration` section represents sources for ClickHouse configuration files. Be it users, remote servers and etc configuration files.
 
 ## .spec.configuration.zookeeper
 ```yaml
@@ -106,7 +106,7 @@ expands into
 #         <method>zstd</method>
 #      </case>
 #      </compression>
-``` 
+```
 `.spec.configuration.settings` refers to [&lt;yandex&gt;&lt;profiles&gt;&lt;/profiles&gt;&lt;users&gt;&lt;/users&gt;&lt;/yandex&gt;][settings] settings sections.
 
 ## .spec.configuration.files
@@ -120,7 +120,7 @@ expands into
         a1,b1,c1,d1
         a2,b2,c2,d2
 ```
-`.spec.configuration.files` allows to introduce custom files to ClickHouse via YAML manifest. 
+`.spec.configuration.files` allows to introduce custom files to ClickHouse via YAML manifest.
 This can be used in order to create complex custom configurations. One possible usage example is [external dictionary][external_dicts_dict]
 ```yaml
 spec:
@@ -192,7 +192,7 @@ Pod and VolumeClaim templates to be used can be specified explicitly for each re
           replicasCount: 2
 ```
 or with detailed specification of `shards` and `replicas`. \
-`shard0` here has `replicasCount` specified, while `shard1` has 3 replicas explicitly specified, with possibility to customized each replica.  
+`shard0` here has `replicasCount` specified, while `shard1` has 3 replicas explicitly specified, with possibility to customized each replica.
 ```yaml
       - name: customized
         templates:
@@ -220,7 +220,7 @@ or with detailed specification of `shards` and `replicas`. \
                 - name: replica1
                 - name: replica2
 ```
-combination is also possible, which is presented in `shard2` specification, where 3 replicas in total are requested with `replicasCount` 
+combination is also possible, which is presented in `shard2` specification, where 3 replicas in total are requested with `replicasCount`
 and one of these replicas is explicitly specified with different `podTemplate`:
 ```yaml
       - name: customized
@@ -230,7 +230,7 @@ and one of these replicas is explicitly specified with different `podTemplate`:
           logVolumeClaimTemplate: default-volume-claim
         layout:
           shards:
-          
+
             - name: shard2
               replicasCount: 3
               templates:
@@ -252,7 +252,7 @@ In ClickHouse config file this would be represented as:
 <yandex>
     <remote_servers>
         <all-counts>
-        
+
             <shard>
                 <internal_replication>true</internal_replication>
                 <replica>
@@ -264,7 +264,7 @@ In ClickHouse config file this would be represented as:
                     <port>9000</port>
                 </replica>
             </shard>
-            
+
             <shard>
                 <internal_replication>true</internal_replication>
                 <replica>
@@ -276,7 +276,7 @@ In ClickHouse config file this would be represented as:
                     <port>9000</port>
                 </replica>
             </shard>
-            
+
             <shard>
                 <internal_replication>true</internal_replication>
                 <replica>
@@ -288,11 +288,11 @@ In ClickHouse config file this would be represented as:
                     <port>9000</port>
                 </replica>
             </shard>
-            
+
         </all-counts>
     </remote_servers>
 </yandex>
-``` 
+```
 with full IP and DNS management provided by k8s and operator.
 
 ### Layout with shards count specified
@@ -309,32 +309,32 @@ In ClickHouse config file this would be represented as:
 <yandex>
     <remote_servers>
         <shards-only>
-        
+
             <shard>
                 <replica>
                     <host>192.168.1.1</host>
                     <port>9000</port>
                 </replica>
             </shard>
-            
+
             <shard>
                 <replica>
                     <host>192.168.1.2</host>
                     <port>9000</port>
                 </replica>
             </shard>
-            
+
             <shard>
                 <replica>
                     <host>192.168.1.3</host>
                     <port>9000</port>
                 </replica>
             </shard>
-            
+
         </shards-only>
     </remote_servers>
 </yandex>
-``` 
+```
 
 ### Layout with replicas count specified
 
@@ -350,7 +350,7 @@ In ClickHouse config file this would be represented as:
 <yandex>
     <remote_servers>
         <replicas-only>
-        
+
             <shard>
                 <internal_replication>true</internal_replication>
                 <replica>
@@ -366,11 +366,11 @@ In ClickHouse config file this would be represented as:
                     <port>9000</port>
                 </replica>
             </shard>
-            
+
         </replicas-only>
     </remote_servers>
 </yandex>
-``` 
+```
 
 ### Advanced layout techniques
 `layout` provides possibility to explicitly define each shard and replica with
@@ -381,11 +381,11 @@ In ClickHouse config file this would be represented as:
         shards:
           - replicas:
 ```
-so we can specify `shards` and `replicas` explicitly - either all `shards` and `replias` or selectively, 
-only those which we'd like to be different from default template. 
+so we can specify `shards` and `replicas` explicitly - either all `shards` and `replias` or selectively,
+only those which we'd like to be different from default template.
 
 Full specification of `replicas` in a shard. Note - no `replicasCount` specified, all replicas are described by `replicas` array:
-```yaml        
+```yaml
             - name: shard1
               templates:
                 podTemplate: clickhouse-v18.16.1
@@ -513,7 +513,7 @@ with additional sections, such as:
 `.spec.templates.volumeClaimTemplates` represents [PersistentVolumeClaim][persistentvolumeclaims] templates
 
 ## .spec.templates.podTemplates
-```yaml              
+```yaml
   templates:
     podTemplates:
       # multiple pod templates makes possible to update version smoothly
@@ -551,21 +551,21 @@ with additional sections, such as:
                   memory: "64Mi"
                   cpu: "100m"
 ```
-`.spec.templates.podTemplates` represents [Pod Templates][pod-templates] 
+`.spec.templates.podTemplates` represents [Pod Templates][pod-templates]
 with additional sections, such as:
 1. `zone`
 1. `distribution`
 
 **`zone`** and **`distribution`** together define zoned layout of ClickHouse instances over nodes. Internally it is a shortcut to `affinity.nodeAffinity` and `affinity.podAntiAffinity` properly filled.
 
-Example - how to place ClickHouse instances in AWS `us-east-1a` availability zone with one ClickHouse per host 
+Example - how to place ClickHouse instances in AWS `us-east-1a` availability zone with one ClickHouse per host
 ```yaml
         zone:
           values:
             - "us-east-1a"
         distribution: "OnePerHost"
 ```
-Example - how to place ClickHouse instances on nodes labeled as `clickhouse=allow` with one ClickHouse per host 
+Example - how to place ClickHouse instances on nodes labeled as `clickhouse=allow` with one ClickHouse per host
 ```yaml
         zone:
           key: "clickhouse"
@@ -582,4 +582,4 @@ Example - how to place ClickHouse instances on nodes labeled as `clickhouse=allo
 [external_dicts_dict]: https://clickhouse.yandex/docs/en/query_language/dicts/external_dicts_dict/
 [service]: https://kubernetes.io/docs/concepts/services-networking/service/
 [persistentvolumeclaims]: https://kubernetes.io/docs/concepts/storage/persistent-volumes/#persistentvolumeclaims
-[pod-templates]: https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/#pod-templates 
+[pod-templates]: https://kubernetes.io/docs/concepts/workloads/pods/pod-overview/#pod-templates

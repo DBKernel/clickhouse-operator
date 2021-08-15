@@ -24,9 +24,9 @@ import (
 	kuberest "k8s.io/client-go/rest"
 	kubeclientcmd "k8s.io/client-go/tools/clientcmd"
 
-	log "github.com/altinity/clickhouse-operator/pkg/announcer"
-	chopclientset "github.com/altinity/clickhouse-operator/pkg/client/clientset/versioned"
-	"github.com/altinity/clickhouse-operator/pkg/version"
+	log "github.com/DBKernel/clickhouse-operator/pkg/announcer"
+	chopclientset "github.com/DBKernel/clickhouse-operator/pkg/client/clientset/versioned"
+	"github.com/DBKernel/clickhouse-operator/pkg/version"
 )
 
 // getKubeConfig creates kuberest.Config object based on current environment

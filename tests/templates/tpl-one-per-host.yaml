@@ -1,4 +1,4 @@
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallationTemplate"
 
 metadata:
@@ -6,7 +6,7 @@ metadata:
 spec:
   defaults:
     templates:
-      podTemplate: default  
+      podTemplate: default
   templates:
     podTemplates:
       - name: default

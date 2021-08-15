@@ -23,9 +23,9 @@ import (
 	sync "sync"
 	time "time"
 
-	versioned "github.com/altinity/clickhouse-operator/pkg/client/clientset/versioned"
-	clickhousealtinitycom "github.com/altinity/clickhouse-operator/pkg/client/informers/externalversions/clickhouse.altinity.com"
-	internalinterfaces "github.com/altinity/clickhouse-operator/pkg/client/informers/externalversions/internalinterfaces"
+	versioned "github.com/DBKernel/clickhouse-operator/pkg/client/clientset/versioned"
+	clickhousedbkernelcom "github.com/DBKernel/clickhouse-operator/pkg/client/informers/externalversions/clickhouse.dbkernel.com"
+	internalinterfaces "github.com/DBKernel/clickhouse-operator/pkg/client/informers/externalversions/internalinterfaces"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -172,9 +172,9 @@ type SharedInformerFactory interface {
 	ForResource(resource schema.GroupVersionResource) (GenericInformer, error)
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
-	Clickhouse() clickhousealtinitycom.Interface
+	Clickhouse() clickhousedbkernelcom.Interface
 }
 
-func (f *sharedInformerFactory) Clickhouse() clickhousealtinitycom.Interface {
-	return clickhousealtinitycom.New(f, f.namespace, f.tweakListOptions)
+func (f *sharedInformerFactory) Clickhouse() clickhousedbkernelcom.Interface {
+	return clickhousedbkernelcom.New(f, f.namespace, f.tweakListOptions)
 }

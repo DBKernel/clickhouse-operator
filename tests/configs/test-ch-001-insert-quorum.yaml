@@ -1,4 +1,4 @@
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 
 kind: "ClickHouseInstallation"
 
@@ -24,4 +24,3 @@ spec:
         layout:
           shardsCount: 1
           replicasCount: 2
-

@@ -157,7 +157,7 @@ def test_operator_upgrade(config, version_from, version_to=settings.operator_ver
             }
         )
         start_time = kubectl.get_field("pod", f"chi-{chi}-{chi}-0-0-0", ".status.startTime")
-        
+
         with Then("Create a table"):
             clickhouse.query(chi, "CREATE TABLE test_local Engine = Log as SELECT 1")
 
@@ -212,7 +212,7 @@ def test_operator_restart(config, version=settings.operator_version):
                     "service": 2,
                 })
             time.sleep(10)
-            
+
             with Then("ClickHouse pods should not be restarted"):
                 new_start_time = kubectl.get_field("pod", f"chi-{chi}-{cluster}-0-0-0", ".status.startTime")
                 assert start_time == new_start_time
@@ -641,9 +641,9 @@ def test_014(self):
     require_zookeeper()
 
     create_table = """
-    CREATE TABLE test_local(a Int8) 
+    CREATE TABLE test_local(a Int8)
     Engine = ReplicatedMergeTree('/clickhouse/{installation}/{cluster}/tables/{shard}/{database}/{table}', '{replica}')
-    PARTITION BY tuple() 
+    PARTITION BY tuple()
     ORDER BY a
     """.replace('\r', '').replace('\n', '')
 
@@ -926,11 +926,11 @@ def test_016(self):
             kubectl.wait_command(
                 f"exec chi-{chi}-default-0-0-0 -- bash -c \"grep test-03 /etc/clickhouse-server/config.d/custom.xml | wc -l\"",
                 "1")
-        
+
         with And("Custom macro 'test' should change the value"):
             out = clickhouse.query(chi, sql="select substitution from system.macros where macro='test'")
             assert out == "test-03"
-        
+
         with And("ClickHouse SHOULD BE restarted"):
             new_start_time = kubectl.get_field("pod", f"chi-{chi}-default-0-0-0", ".status.startTime")
             assert start_time < new_start_time
@@ -947,11 +947,11 @@ def test_016(self):
             kubectl.wait_command(
                 f"exec chi-{chi}-default-0-0-0 -- bash -c \"grep test-custom2 /etc/clickhouse-server/config.d/custom2.xml | wc -l\"",
                 "1")
-        
+
         with And("Custom macro 'test-custom2' should be found"):
             out = clickhouse.query(chi, sql="select substitution from system.macros where macro='test-custom2'")
             assert out == "test-custom2"
-        
+
         with And("ClickHouse SHOULD BE restarted"):
             new_start_time = kubectl.get_field("pod", f"chi-{chi}-default-0-0-0", ".status.startTime")
             assert start_time < new_start_time
@@ -1051,7 +1051,7 @@ def test_019(self):
 
     create_non_replicated_table = "create table t1 Engine = Log as select 1 as a"
     create_replicated_table = """
-    create table t2 
+    create table t2
     Engine = ReplicatedMergeTree('/clickhouse/{installation}/{cluster}/tables/{shard}/{database}/{table}', '{replica}')
     partition by tuple() order by a
     as select 1 as a""".replace('\r', '').replace('\n', '')
@@ -1086,12 +1086,12 @@ def test_019(self):
         with And("Replicated table should have data"):
             out = clickhouse.query(chi, sql="select a from t2")
             assert out == "1"
-            
+
     with Then("Stop the Installation"):
         kubectl.create_and_check(
             config="configs/test-019-retain-volume-2.yaml",
             check={
-                "object_counts": { 
+                "object_counts": {
                     "statefulset": 1, # When stopping, pod is removed but statefulset and all volumes are in place
                     "pod": 0,
                     "service": 1, # load balancer service should be removed
@@ -1164,7 +1164,7 @@ def test_020(self):
 @Name("test_021. Test rescaling storage")
 def test_021(self):
     config = "configs/test-021-rescale-volume-01.yaml"
-    
+
     with Given("Default storage class is expandable"):
         default_storage_class = kubectl.get_default_storage_class()
         assert default_storage_class is not None
@@ -1227,7 +1227,7 @@ def test_021(self):
             # ClickHouse requires some time to mount volume. Race conditions.
             # TODO: wait for proper pod state and check the liveness probe probably. This is better than waiting
             for i in range(8):
-                out = clickhouse.query(chi, "SELECT count() FROM system.disks")                    
+                out = clickhouse.query(chi, "SELECT count() FROM system.disks")
                 if out == "2":
                     break
                 with Then(f"Not ready yet. Wait for {1<<i} seconds"):
@@ -1277,7 +1277,7 @@ def test_023(self):
             "pod_image": settings.clickhouse_version,
         }
     )
-    
+
     kubectl.launch("delete chit clickhouse-stable")
 
 @TestScenario
@@ -1292,25 +1292,25 @@ def test_024(self):
             "do_not_delete": 1,
         },
     )
-    
+
     with Then("Pod annotations should be populated"):
         assert kubectl.get_field("pod", "chi-test-024-default-0-0-0", ".metadata.annotations.test") == "test"
     with And("Service annotations should be populated"):
         assert kubectl.get_field("service", "clickhouse-test-024", ".metadata.annotations.test") == "test"
     with And("PVC annotations should be populated"):
-        assert kubectl.get_field("pvc", "-l clickhouse.altinity.com/chi=test-024", ".metadata.annotations.test") == "test"
-        
+        assert kubectl.get_field("pvc", "-l clickhouse.dbkernel.com/chi=test-024", ".metadata.annotations.test") == "test"
+
     kubectl.delete_chi(chi)
-    
+
 @TestScenario
 @Name("test_025. Test that service is available during re-scalaling, upgades etc.")
 def test_025(self):
     require_zookeeper()
 
     create_table = """
-    CREATE TABLE test_local(a UInt32) 
+    CREATE TABLE test_local(a UInt32)
     Engine = ReplicatedMergeTree('/clickhouse/{installation}/tables/{shard}/{database}/{table}', '{replica}')
-    PARTITION BY tuple() 
+    PARTITION BY tuple()
     ORDER BY a
     """.replace('\r', '').replace('\n', '')
 
@@ -1352,7 +1352,7 @@ def test_025(self):
             },
             timeout=600,
         )
-    
+
     with Then("Query second pod using service as soon as pod is in ready state"):
         kubectl.wait_field(
             "pod", "chi-test-025-rescaling-default-0-1-0",
@@ -1381,19 +1381,19 @@ def test_025(self):
             print("Waiting 1 second.")
             time.sleep(1)
         print(f"Tables not ready: {round(distr_lb_error_time - start_time)}s, data not ready: {round(latent_replica_time - distr_lb_error_time)}s")
-        
+
         with Then("Query to the distributed table via load balancer should never fail"):
             assert round(distr_lb_error_time - start_time) == 0
         with And("Query to the local table via load balancer should never fail"):
             assert round(lb_error_time - start_time) == 0
 
     kubectl.delete_chi(chi)
-    
+
 @TestScenario
 @Name("test_026. Test mixed single and multi-volume configuration in one cluster")
 def test_026(self):
     require_zookeeper()
-    
+
     config="configs/test-026-mixed-replicas.yaml"
     chi = manifest.get_chi_name(util.get_full_path(config))
     kubectl.create_and_check(
@@ -1403,12 +1403,12 @@ def test_026(self):
             "do_not_delete": 1,
         },
     )
-    
+
     with When("Cluster is ready"):
         with Then("Check that first replica has one disk"):
             out = clickhouse.query(chi, host = "chi-test-026-mixed-replicas-default-0-0", sql = "select count() from system.disks")
             assert out == "1"
-    
+
         with And("Check that second replica has two disks"):
             out = clickhouse.query(chi, host = "chi-test-026-mixed-replicas-default-0-1", sql = "select count() from system.disks")
             assert out == "2"
@@ -1420,15 +1420,14 @@ def test_026(self):
         time.sleep(5)
 
         with Then("Data should be placed on a single disk on a first replica"):
-            out = clickhouse.query(chi, host = "chi-test-026-mixed-replicas-default-0-0", 
+            out = clickhouse.query(chi, host = "chi-test-026-mixed-replicas-default-0-0",
                                          sql = "select arraySort(groupUniqArray(disk_name)) from system.parts where table='test_disks'")
             assert out == "['default']"
 
         with And("Data should be placed on a second disk on a second replica"):
-            out = clickhouse.query(chi, host = "chi-test-026-mixed-replicas-default-0-1", 
+            out = clickhouse.query(chi, host = "chi-test-026-mixed-replicas-default-0-1",
                                          sql = "select arraySort(groupUniqArray(disk_name)) from system.parts where table='test_disks'")
             assert out == "['disk2']"
-            
+
     kubectl.delete_chi(chi)
 
-   

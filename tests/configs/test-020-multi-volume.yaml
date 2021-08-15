@@ -1,13 +1,13 @@
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: "test-020-multi-volume"
 spec:
   configuration:
     clusters:
-    - name: simple
-      layout:
-        shardsCount: 1
+      - name: simple
+        layout:
+          shardsCount: 1
     settings:
       storage_configuration/disks/disk2/path: /var/lib/clickhouse2/
       storage_configuration/policies/default/volumes/default/disk: default
@@ -44,5 +44,5 @@ spec:
                   mountPath: /var/lib/clickhouse2
               command:
                 - /bin/bash
-                - '-c'
+                - "-c"
                 - chown clickhouse /var/lib/clickhouse2 && /entrypoint.sh

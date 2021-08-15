@@ -12,7 +12,7 @@
 Let's take a look on [example][chi-examples/04-replication-zookeeper-05-simple-PV.yaml], which creates a cluster with 2 shards and 2 replicas and persistent storage.
 
 ```yaml
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 
 metadata:
@@ -20,10 +20,10 @@ metadata:
 
 spec:
   defaults:
-    templates: 
+    templates:
       dataVolumeClaimTemplate: default
       podTemplate: clickhouse:19.6
- 
+
   configuration:
     zookeeper:
       nodes:

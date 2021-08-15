@@ -23,10 +23,10 @@ import (
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/util/intstr"
 
-	log "github.com/altinity/clickhouse-operator/pkg/announcer"
-	chiv1 "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
-	"github.com/altinity/clickhouse-operator/pkg/chop"
-	"github.com/altinity/clickhouse-operator/pkg/util"
+	log "github.com/DBKernel/clickhouse-operator/pkg/announcer"
+	chiv1 "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
+	"github.com/DBKernel/clickhouse-operator/pkg/chop"
+	"github.com/DBKernel/clickhouse-operator/pkg/util"
 )
 
 type Creator struct {
@@ -86,6 +86,8 @@ func (c *Creator) CreateServiceCHI() *corev1.Service {
 					Port:       chDefaultTCPPortNumber,
 					TargetPort: intstr.FromString(chDefaultTCPPortName),
 				},
+				Selector:              c.labeler.getSelectorCHIScopeReady(),
+				Type:                  corev1.ServiceTypeClusterIP,
 			},
 			Selector:              c.labeler.getSelectorCHIScopeReady(),
 			Type:                  corev1.ServiceTypeLoadBalancer,

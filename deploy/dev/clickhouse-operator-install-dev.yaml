@@ -1,9 +1,9 @@
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: clickhouseinstallations.clickhouse.altinity.com
+  name: clickhouseinstallations.clickhouse.dbkernel.com
 spec:
-  group: clickhouse.altinity.com
+  group: clickhouse.dbkernel.com
   version: v1
   scope: Namespaced
   names:
@@ -732,9 +732,9 @@ spec:
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: clickhouseinstallationtemplates.clickhouse.altinity.com
+  name: clickhouseinstallationtemplates.clickhouse.dbkernel.com
 spec:
-  group: clickhouse.altinity.com
+  group: clickhouse.dbkernel.com
   version: v1
   scope: Namespaced
   names:
@@ -1463,9 +1463,9 @@ spec:
 apiVersion: apiextensions.k8s.io/v1beta1
 kind: CustomResourceDefinition
 metadata:
-  name: clickhouseoperatorconfigurations.clickhouse.altinity.com
+  name: clickhouseoperatorconfigurations.clickhouse.dbkernel.com
 spec:
-  group: clickhouse.altinity.com
+  group: clickhouse.dbkernel.com
   version: v1
   scope: Namespaced
   names:
@@ -1601,112 +1601,112 @@ kind: ClusterRole
 metadata:
   name: clickhouse-operator-dev
 rules:
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  - services
-  verbs:
-  - create
-  - delete
-  - get
-  - patch
-  - update
-- apiGroups:
-  - ""
-  resources:
-  - events
-  verbs:
-  - create
-- apiGroups:
-  - ""
-  resources:
-  - persistentvolumeclaims
-  verbs:
-  - delete
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - ""
-  resources:
-  - persistentvolumes
-  - pods
-  verbs:
-  - get
-  - list
-  - patch
-  - update
-  - watch
-- apiGroups:
-  - apps
-  resources:
-  - statefulsets
-  verbs:
-  - create
-  - delete
-  - get
-  - patch
-  - update
-- apiGroups:
-  - clickhouse.altinity.com
-  resources:
-  - clickhouseinstallations
-  verbs:
-  - delete
-  - get
-  - patch
-  - update
-- apiGroups:
-  - apps
-  resourceNames:
-  - clickhouse-operator
-  resources:
-  - deployments
-  verbs:
-  - get
-  - patch
-  - update
-  - delete
-- apiGroups:
-  - apps
-  resources:
-  - replicasets
-  verbs:
-  - delete
-  - get
-  - patch
-  - update
-- apiGroups:
-  - ""
-  resources:
-  - configmaps
-  - endpoints
-  - services
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - apps
-  resources:
-  - statefulsets
-  verbs:
-  - get
-  - list
-  - watch
-- apiGroups:
-  - clickhouse.altinity.com
-  resources:
-  - clickhouseinstallations
-  - clickhouseinstallationtemplates
-  - clickhouseoperatorconfigurations
-  verbs:
-  - get
-  - list
-  - watch
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - services
+    verbs:
+      - create
+      - delete
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - events
+    verbs:
+      - create
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumeclaims
+    verbs:
+      - delete
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - ""
+    resources:
+      - persistentvolumes
+      - pods
+    verbs:
+      - get
+      - list
+      - patch
+      - update
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - statefulsets
+    verbs:
+      - create
+      - delete
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - clickhouse.dbkernel.com
+    resources:
+      - clickhouseinstallations
+    verbs:
+      - delete
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - apps
+    resourceNames:
+      - clickhouse-operator
+    resources:
+      - deployments
+    verbs:
+      - get
+      - patch
+      - update
+      - delete
+  - apiGroups:
+      - apps
+    resources:
+      - replicasets
+    verbs:
+      - delete
+      - get
+      - patch
+      - update
+  - apiGroups:
+      - ""
+    resources:
+      - configmaps
+      - endpoints
+      - services
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - apps
+    resources:
+      - statefulsets
+    verbs:
+      - get
+      - list
+      - watch
+  - apiGroups:
+      - clickhouse.dbkernel.com
+    resources:
+      - clickhouseinstallations
+      - clickhouseinstallationtemplates
+      - clickhouseoperatorconfigurations
+    verbs:
+      - get
+      - list
+      - watch
 ---
 # Setup ClusterRoleBinding between ClusterRole and ServiceAccount.
 # ClusterRoleBinding is namespace-less and must have unique name
@@ -1719,9 +1719,9 @@ roleRef:
   kind: ClusterRole
   name: clickhouse-operator-dev
 subjects:
-- kind: ServiceAccount
-  name: clickhouse-operator
-  namespace: dev
+  - kind: ServiceAccount
+    name: clickhouse-operator
+    namespace: dev
 ---
 # Possible Template Parameters:
 #
@@ -1743,7 +1743,7 @@ data:
     ## Watch Namespaces Section
     ##
     ################################################
-    
+
     # List of namespaces where clickhouse-operator watches for events.
     # Concurrently running operators should watch on different namespaces
     #watchNamespaces:
@@ -1751,46 +1751,46 @@ data:
     #  - test
     #  - info
     #  - onemore
-    
+
     ################################################
     ##
     ## Additional Configuration Files Section
     ##
     ################################################
-    
+
     # Path to folder where ClickHouse configuration files common for all instances within CHI are located.
     chCommonConfigsPath: config.d
-    
+
     # Path to folder where ClickHouse configuration files unique for each instance (host) within CHI are located.
     chHostConfigsPath: conf.d
-    
+
     # Path to folder where ClickHouse configuration files with users settings are located.
     # Files are common for all instances within CHI
     chUsersConfigsPath: users.d
-    
+
     # Path to folder where ClickHouseInstallation .yaml manifests are located.
     # Manifests are applied in sorted alpha-numeric order
     chiTemplatesPath: templates.d
-    
+
     ################################################
     ##
     ## Cluster Create/Update/Delete Objects Section
     ##
     ################################################
-    
+
     # How many seconds to wait for created/updated StatefulSet to be Ready
     statefulSetUpdateTimeout: 300
-    
+
     # How many seconds to wait between checks for created/updated StatefulSet status
     statefulSetUpdatePollPeriod: 5
-    
+
     # What to do in case created StatefulSet is not in Ready after `statefulSetUpdateTimeout` seconds
     # Possible options:
     # 1. abort - do nothing, just break the process and wait for admin
     # 2. delete - delete newly created problematic StatefulSet
     # 3. ignore - ignore error, pretend nothing happened and move on to the next StatefulSet
     onStatefulSetCreateFailureAction: ignore
-    
+
     # What to do in case updated StatefulSet is not in Ready after `statefulSetUpdateTimeout` seconds
     # Possible options:
     # 1. abort - do nothing, just break the process and wait for admin
@@ -1798,13 +1798,13 @@ data:
     # Pod would be recreated by StatefulSet based on rollback-ed configuration
     # 3. ignore - ignore error, pretend nothing happened and move on to the next StatefulSet
     onStatefulSetUpdateFailureAction: rollback
-    
+
     ################################################
     ##
     ## ClickHouse Settings Section
     ##
     ################################################
-    
+
     # Default values for ClickHouse user configuration
     # 1. user/profile - string
     # 2. user/quota - string
@@ -1816,16 +1816,16 @@ data:
       - "::1"
       - "127.0.0.1"
     chConfigUserDefaultPassword: "default"
-    
+
     # Default host_regexp to limit network connectivity from outside
     chConfigNetworksHostRegexpTemplate: "(chi-{chi}-[^.]+\\d+-\\d+|clickhouse\\-{chi})\\.{namespace}\\.svc\\.cluster\\.local$"
-    
+
     ################################################
     ##
     ## Access to ClickHouse instances
     ##
     ################################################
-    
+
     # ClickHouse credentials (username, password and port) to be used by operator to connect to ClickHouse instances
     # for:
     # 1. Metrics requests
@@ -1835,51 +1835,51 @@ data:
     # located in `chUsersConfigsPath` folder
     chUsername: clickhouse_operator
     chPassword: clickhouse_operator_password
-    
+
     # Location of k8s Secret with username and password to be used by operator to connect to ClickHouse instances
     # Can be used instead of explicitly specified username and password
     chCredentialsSecretNamespace: ""
     chCredentialsSecretName: ""
-    
+
     # Port where to connect to ClickHouse instances to
     chPort: 8123
-    
+
     ################################################
     ##
     ## Log parameters
     ##
     ################################################
-    
+
     logtostderr: "true"
     alsologtostderr: "false"
     v: "1"
     stderrthreshold: ""
     vmodule: ""
     log_backtrace_at: ""
-    
+
     ################################################
     ##
     ## Runtime parameters
     ##
     ################################################
-    
+
     # Max number of concurrent reconciles in progress
     reconcileThreadsNumber: 10
     reconcileWaitExclude: false
     reconcileWaitInclude: false
-    
+
     ################################################
     ##
     ## Labels management parameters
     ##
     ################################################
-    
+
     # When propagating labels from the chi's `metadata.labels` section to child objects' `metadata.labels`,
     # exclude labels from the following list:
     #excludeFromPropagationLabels:
     #  - "labelA"
     #  - "labelB"
-    
+
     # Whether to append *Scope* labels to StatefulSet and Pod.
     # Full list of available *scope* labels check in labeler.go
     #  LabelShardScopeIndex
@@ -1936,7 +1936,7 @@ data:
     <yandex>
         <logger>
             <!-- Possible levels: https://github.com/pocoproject/poco/blob/develop/Foundation/include/Poco/Logger.h#L105 -->
-            <level>debug</level>
+            <level>information</level>
             <log>/var/log/clickhouse-server/clickhouse-server.log</log>
             <errorlog>/var/log/clickhouse-server/clickhouse-server.err.log</errorlog>
             <size>1000M</size>
@@ -1982,7 +1982,7 @@ metadata:
 data:
   001-templates.json.example: |
     {
-      "apiVersion": "clickhouse.altinity.com/v1",
+      "apiVersion": "clickhouse.dbkernel.com/v1",
       "kind": "ClickHouseInstallationTemplate",
       "metadata": {
         "name": "01-default-volumeclaimtemplate"
@@ -2037,7 +2037,7 @@ data:
     }
 
   default-pod-template.yaml.example: |
-    apiVersion: "clickhouse.altinity.com/v1"
+    apiVersion: "clickhouse.dbkernel.com/v1"
     kind: "ClickHouseInstallationTemplate"
     metadata:
       name: "default-oneperhost-pod-template"
@@ -2047,7 +2047,7 @@ data:
           - name: default-oneperhost-pod-template
             distribution: "OnePerHost"
   default-storage-template.yaml.example: |
-    apiVersion: "clickhouse.altinity.com/v1"
+    apiVersion: "clickhouse.dbkernel.com/v1"
     kind: "ClickHouseInstallationTemplate"
     metadata:
       name: "default-storage-template-2Gi"
@@ -2148,8 +2148,8 @@ spec:
       labels:
         app: clickhouse-operator
       annotations:
-        prometheus.io/port: '8888'
-        prometheus.io/scrape: 'true'
+        prometheus.io/port: "8888"
+        prometheus.io/scrape: "true"
     spec:
       serviceAccountName: clickhouse-operator
       volumes:

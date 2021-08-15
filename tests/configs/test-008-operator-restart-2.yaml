@@ -1,4 +1,4 @@
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: "test-008-2"
@@ -74,5 +74,6 @@ spec:
               lifecycle:
                 preStop:
                   exec:
-                    command: ["/bin/sh", "-c", "pkill -SIGTERM clickhouse-server"]
+                    command:
+                      ["/bin/sh", "-c", "pkill -SIGTERM clickhouse-server"]
           terminationGracePeriodSeconds: 360

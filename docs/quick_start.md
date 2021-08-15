@@ -24,7 +24,7 @@ Apply `clickhouse-operator` installation manifest. The simplest way - directly f
 just run:
 ```bash
 kubectl apply -f https://raw.githubusercontent.com/Altinity/clickhouse-operator/master/deploy/operator/clickhouse-operator-install.yaml
-``` 
+```
 
 ## **In case you'd like to customize installation parameters**,
 
@@ -46,7 +46,7 @@ curl -s https://raw.githubusercontent.com/Altinity/clickhouse-operator/master/de
 ```
 installer will create namespace `clickhouse-operator` and install **clickhouse-operator** into it.
 
-## **In case you can not run scripts from internet in your protected environment**, 
+## **In case you can not run scripts from internet in your protected environment**,
 
 you can download manually [this template file][clickhouse-operator-install-template.yaml]
 and edit it according to your choice. After that apply it with `kubectl`. Or you can use this snippet instead:
@@ -76,7 +76,7 @@ kubectl apply --namespace="${OPERATOR_NAMESPACE}" -f <( \
 ```text
 Setup ClickHouse Operator into test-clickhouse-operator namespace
 namespace/test-clickhouse-operator created
-customresourcedefinition.apiextensions.k8s.io/clickhouseinstallations.clickhouse.altinity.com configured
+customresourcedefinition.apiextensions.k8s.io/clickhouseinstallations.clickhouse.dbkernel.com configured
 serviceaccount/clickhouse-operator created
 clusterrolebinding.rbac.authorization.k8s.io/clickhouse-operator configured
 service/clickhouse-operator-metrics created
@@ -119,17 +119,17 @@ namespace/test created
 This is the trivial [1 shard 1 replica][01-simple-layout-01-1shard-1repl.yaml] example.
 
 **WARNING**: Do not use it for anything other than 'Hello, world!', it does not have persistent storage!
- 
+
 ```bash
 kubectl apply -n test-clickhouse-operator -f https://raw.githubusercontent.com/Altinity/clickhouse-operator/master/docs/chi-examples/01-simple-layout-01-1shard-1repl.yaml
 ```
 ```text
-clickhouseinstallation.clickhouse.altinity.com/simple-01 created
+clickhouseinstallation.clickhouse.dbkernel.com/simple-01 created
 ```
 
 Installation specification is straightforward and defines 1-replica cluster:
 ```yaml
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: "simple-01"
@@ -164,13 +164,13 @@ There are two ways to connect to ClickHouse database
 
 1. In case previous command `kubectl get service -n test` reported **EXTERNAL-IP** (abc-123.us-east-1.elb.amazonaws.com in our case) we can directly access ClickHouse with:
 ```bash
-clickhouse-client -h abc-123.us-east-1.elb.amazonaws.com -u clickhouse_operator --password clickhouse_operator_password 
+clickhouse-client -h abc-123.us-east-1.elb.amazonaws.com -u clickhouse_operator --password clickhouse_operator_password
 ```
 ```text
 ClickHouse client version 18.14.12.
 Connecting to abc-123.us-east-1.elb.amazonaws.com:9000.
 Connected to ClickHouse server version 19.4.3 revision 54416.
-``` 
+```
 1. In case there is not **EXTERNAL-IP** available, we can access ClickHouse from inside Kubernetes cluster
 ```bash
 kubectl -n test-clickhouse-operator exec -it chi-b3d29f-a242-0-0-0 -- clickhouse-client
@@ -187,7 +187,7 @@ In case of having Dynamic Volume Provisioning available - ex.: running on AWS - 
 Manifest is [available in examples][03-persistent-volume-01-default-volume.yaml]
 
 ```yaml
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: "pv-simple"
@@ -230,7 +230,7 @@ Let's install more complex example with:
 Manifest is [available in examples][03-persistent-volume-02-pod-template.yaml]
 
 ```yaml
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: "pv-log"
@@ -287,7 +287,7 @@ spec:
 You can tell operator to configure your ClickHouse, as shown in the example below ([link to the manifest][05-settings-01-overview.yaml]):
 
 ```yaml
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: "settings-01"

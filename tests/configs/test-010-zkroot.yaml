@@ -1,4 +1,4 @@
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 
 metadata:
@@ -8,7 +8,7 @@ spec:
   useTemplates:
     - name: clickhouse-version
   defaults:
-    templates: 
+    templates:
       logVolumeClaimTemplate: default
   configuration:
     zookeeper: # Add Zookeeper

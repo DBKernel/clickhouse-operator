@@ -17,9 +17,9 @@ package chi
 import (
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/altinity/queue"
+	"github.com/DBKernel/queue"
 
-	chi "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
+	chi "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
 )
 
 const (

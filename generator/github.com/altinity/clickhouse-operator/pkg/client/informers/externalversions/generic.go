@@ -21,7 +21,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1 "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
+	v1 "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )
@@ -52,7 +52,7 @@ func (f *genericInformer) Lister() cache.GenericLister {
 // TODO extend this to unknown resources with a client pool
 func (f *sharedInformerFactory) ForResource(resource schema.GroupVersionResource) (GenericInformer, error) {
 	switch resource {
-	// Group=clickhouse.altinity.com, Version=v1
+	// Group=clickhouse.dbkernel.com, Version=v1
 	case v1.SchemeGroupVersion.WithResource("clickhouseinstallations"):
 		return &genericInformer{resource: resource.GroupResource(), informer: f.Clickhouse().V1().ClickHouseInstallations().Informer()}, nil
 	case v1.SchemeGroupVersion.WithResource("clickhouseinstallationtemplates"):

@@ -16,7 +16,7 @@ package model
 
 import (
 	"fmt"
-	"github.com/altinity/clickhouse-operator/pkg/util"
+	"github.com/DBKernel/clickhouse-operator/pkg/util"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 )
 

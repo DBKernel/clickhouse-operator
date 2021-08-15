@@ -1,4 +1,4 @@
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 
 metadata:
@@ -13,7 +13,7 @@ spec:
         layout:
           shardsCount: 1
     profiles:
-      default/max_memory_usage: 7000000000 # test for big value      
+      default/max_memory_usage: 7000000000 # test for big value
     users:
       user2/profile: default
       user2/quota: default
@@ -49,7 +49,7 @@ spec:
                 <skip_unavailable_shards>1</skip_unavailable_shards>
              </default>
           </profiles>
-        </yandex> 
+        </yandex>
       config.d/remote_servers.xml:
         <yandex>
            <remote_servers>

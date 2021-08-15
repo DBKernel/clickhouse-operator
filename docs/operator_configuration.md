@@ -9,7 +9,7 @@ Common configuration typically contains general ClickHouse configuration section
 1. ClickHouse user configuration files - ready-to-use XML files with sections of ClickHouse configuration **as-is**
 User configuration typically contains ClickHouse configuration sections with user accounts specifications. Those are exposed via config maps as well.
 1. `ClickHouseOperatorConfiguration` resource.
-1. `ClickHouseInstallationTemplate`s. Operator provides functionality to specify parts of `ClickHouseInstallation` manifest as a set of templates, which would be used in all `ClickHouseInstallation`s.   
+1. `ClickHouseInstallationTemplate`s. Operator provides functionality to specify parts of `ClickHouseInstallation` manifest as a set of templates, which would be used in all `ClickHouseInstallation`s.
 
 ## Operator settings
 
@@ -117,7 +117,7 @@ chPort: 8123
 
 ## ClickHouse Installation settings
 
-Operator deploys ClickHouse clusters with different defaults, that can be configured in a flexible way. 
+Operator deploys ClickHouse clusters with different defaults, that can be configured in a flexible way.
 
 ### Default ClickHouse configuration files
 
@@ -136,7 +136,7 @@ Defaults for ClickHouseInstallation can be provided by `ClickHouseInstallationTe
 
 `ClickHouseInstallationTemplate` has the same structure as `ClickHouseInstallation`, but all parts and fields are optional. Templates are included into an installation with 'useTemplates' syntax. For example, one can define a template for ClickHouse pod:
 
-```apiVersion: "clickhouse.altinity.com/v1"
+```apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallationTemplate"
 
 metadata:
@@ -154,7 +154,7 @@ spec:
 
 Template needs to be deployed to some namespace, and later on used in the installation:
 ```
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 ...
 spec:

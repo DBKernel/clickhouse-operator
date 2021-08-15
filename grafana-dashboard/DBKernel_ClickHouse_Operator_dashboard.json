@@ -76,7 +76,7 @@
       }
     ]
   },
-  "description": "Alitinity Clickhouse Operatoe metrics exported by Monitoring Agent",
+  "description": "DBKernel Clickhouse operator metrics exported by Monitoring Agent",
   "editable": true,
   "gnetId": 882,
   "graphTooltip": 1,
@@ -4115,7 +4115,7 @@
     ]
   },
   "timezone": "browser",
-  "title": "Altinity ClickHouse Operator Dashboard",
+  "title": "DBKernel ClickHouse Operator Dashboard",
   "uid": "80bd73d2a243583a9ec0d1b3fdf86e98",
   "version": 20210217
 }

@@ -19,10 +19,10 @@ import (
 
 	"k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	log "github.com/altinity/clickhouse-operator/pkg/announcer"
-	chiv1 "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
-	"github.com/altinity/clickhouse-operator/pkg/model"
-	"github.com/altinity/clickhouse-operator/pkg/util"
+	log "github.com/DBKernel/clickhouse-operator/pkg/announcer"
+	chiv1 "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
+	"github.com/DBKernel/clickhouse-operator/pkg/model"
+	"github.com/DBKernel/clickhouse-operator/pkg/util"
 )
 
 func (c *Controller) labelMyObjectsTree(ctx context.Context) {

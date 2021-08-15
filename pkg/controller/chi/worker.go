@@ -26,14 +26,14 @@ import (
 	"k8s.io/apimachinery/pkg/api/resource"
 	meta "k8s.io/apimachinery/pkg/apis/meta/v1"
 	utilruntime "k8s.io/apimachinery/pkg/util/runtime"
-	//"github.com/altinity/queue"
+	//"github.com/DBKernel/queue"
 
-	"github.com/altinity/queue"
+	"github.com/DBKernel/queue"
 
-	log "github.com/altinity/clickhouse-operator/pkg/announcer"
-	chop "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
-	chopmodel "github.com/altinity/clickhouse-operator/pkg/model"
-	"github.com/altinity/clickhouse-operator/pkg/util"
+	log "github.com/DBKernel/clickhouse-operator/pkg/announcer"
+	chop "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
+	chopmodel "github.com/DBKernel/clickhouse-operator/pkg/model"
+	"github.com/DBKernel/clickhouse-operator/pkg/util"
 )
 
 const FinalizerName = "finalizer.clickhouseinstallation.altinity.com"

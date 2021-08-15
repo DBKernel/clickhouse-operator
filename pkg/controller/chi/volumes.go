@@ -17,9 +17,9 @@ package chi
 import (
 	"k8s.io/api/core/v1"
 
-	log "github.com/altinity/clickhouse-operator/pkg/announcer"
-	chop "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
-	chopmodel "github.com/altinity/clickhouse-operator/pkg/model"
+	log "github.com/DBKernel/clickhouse-operator/pkg/announcer"
+	chop "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
+	chopmodel "github.com/DBKernel/clickhouse-operator/pkg/model"
 )
 
 func (c *Controller) walkPVCs(host *chop.ChiHost, f func(pvc *v1.PersistentVolumeClaim)) {

@@ -7,7 +7,7 @@ SRC_ROOT="$(realpath "${CUR_DIR}/..")"
 
 MANIFESTS_ROOT="${SRC_ROOT}/deploy"
 
-REPO="github.com/altinity/clickhouse-operator"
+REPO="github.com/DBKernel/clickhouse-operator"
 # 0.9.3
 VERSION=$(cd "${SRC_ROOT}"; cat release)
 # 885c3f7

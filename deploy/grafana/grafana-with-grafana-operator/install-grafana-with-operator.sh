@@ -174,10 +174,10 @@ for LINE in $(kubectl get --all-namespaces chi -o custom-columns=NAMESPACE:.meta
     NAMESPACE=${ITEMS[0]}
     CHI=${ITEMS[1]}
     ENDPOINT=${ITEMS[2]}
-    PORT=$(kubectl --namespace="${NAMESPACE}" get service -l "clickhouse.altinity.com/app=chop,clickhouse.altinity.com/Service=chi,clickhouse.altinity.com/chi=${CHI}" -o='custom-columns=PORT:.spec.ports[?(@.name=="http")].port' | tail -n 1)
+    PORT=$(kubectl --namespace="${NAMESPACE}" get service -l "clickhouse.dbkernel.com/app=chop,clickhouse.dbkernel.com/Service=chi,clickhouse.dbkernel.com/chi=${CHI}" -o='custom-columns=PORT:.spec.ports[?(@.name=="http")].port' | tail -n 1)
 
     echo "Ensure system.query_log is in place on each pod in ClickHouseInstallation ${NAMESPACE}/${CHI}"
-    for POD in $(kubectl --namespace="${NAMESPACE}" get pods -l "clickhouse.altinity.com/app=chop,clickhouse.altinity.com/chi=${CHI}" -o='custom-columns=NAME:.metadata.name' | tail -n +2); do
+    for POD in $(kubectl --namespace="${NAMESPACE}" get pods -l "clickhouse.dbkernel.com/app=chop,clickhouse.dbkernel.com/chi=${CHI}" -o='custom-columns=NAME:.metadata.name' | tail -n +2); do
         echo "Ensure system.query_log on pod ${NAMESPACE}/${POD}"
         kubectl --namespace="${NAMESPACE}" exec "${POD}" -- \
             clickhouse-client --echo -mn -q 'SELECT hostName(), dummy FROM system.one SETTINGS log_queries=1; SYSTEM FLUSH LOGS'

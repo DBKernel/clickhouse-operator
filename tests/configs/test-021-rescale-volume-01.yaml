@@ -1,13 +1,13 @@
-apiVersion: "clickhouse.altinity.com/v1"
+apiVersion: "clickhouse.dbkernel.com/v1"
 kind: "ClickHouseInstallation"
 metadata:
   name: "test-021-rescale-volume"
 spec:
   configuration:
     clusters:
-    - name: simple
-      layout:
-        shardsCount: 1
+      - name: simple
+        layout:
+          shardsCount: 1
   defaults:
     templates:
       podTemplate: multi-volume
@@ -29,4 +29,3 @@ spec:
               volumeMounts:
                 - name: disk1
                   mountPath: /var/lib/clickhouse
-

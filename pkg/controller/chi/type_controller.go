@@ -25,11 +25,11 @@ import (
 	"k8s.io/client-go/util/workqueue"
 	//"k8s.io/client-go/util/workqueue"
 
-	"github.com/altinity/queue"
+	"github.com/DBKernel/queue"
 
-	"github.com/altinity/clickhouse-operator/pkg/chop"
-	chopclientset "github.com/altinity/clickhouse-operator/pkg/client/clientset/versioned"
-	choplisters "github.com/altinity/clickhouse-operator/pkg/client/listers/clickhouse.altinity.com/v1"
+	"github.com/DBKernel/clickhouse-operator/pkg/chop"
+	chopclientset "github.com/DBKernel/clickhouse-operator/pkg/client/clientset/versioned"
+	choplisters "github.com/DBKernel/clickhouse-operator/pkg/client/listers/clickhouse.dbkernel.com/v1"
 )
 
 // Controller defines CRO controller

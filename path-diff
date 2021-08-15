@@ -1,0 +1,14 @@
+
+## reflect
+
+```bash
+pkg/apis/clickhouse.altinity.com -> pkg/apis/clickhouse.dbkernel.com
+pkg/client/clientset/versioned/typed/clickhouse.altinity.com -> pkg/client/clientset/versioned/typed/clickhouse.dbkernel.com
+pkg/client/informers/externalversions/clickhouse.altinity.com -> pkg/client/informers/externalversions/clickhouse.dbkernel.com
+
+generator/github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com
+generator/github.com/altinity/clickhouse-operator/pkg/client/informers/externalversions/clickhouse.altinity.com
+generator/github.com/altinity/clickhouse-operator/pkg/client/listers/clickhouse.altinity.com
+generator/github.com/altinity/clickhouse-operator/pkg/client/clientset/versioned/typed/clickhouse.altinity.com
+```
+

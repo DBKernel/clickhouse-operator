@@ -22,10 +22,10 @@ import (
 	"context"
 	time "time"
 
-	clickhousealtinitycomv1 "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
-	versioned "github.com/altinity/clickhouse-operator/pkg/client/clientset/versioned"
-	internalinterfaces "github.com/altinity/clickhouse-operator/pkg/client/informers/externalversions/internalinterfaces"
-	v1 "github.com/altinity/clickhouse-operator/pkg/client/listers/clickhouse.altinity.com/v1"
+	clickhousedbkernelcomv1 "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
+	versioned "github.com/DBKernel/clickhouse-operator/pkg/client/clientset/versioned"
+	internalinterfaces "github.com/DBKernel/clickhouse-operator/pkg/client/informers/externalversions/internalinterfaces"
+	v1 "github.com/DBKernel/clickhouse-operator/pkg/client/listers/clickhouse.dbkernel.com/v1"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	watch "k8s.io/apimachinery/pkg/watch"
@@ -71,7 +71,7 @@ func NewFilteredClickHouseInstallationTemplateInformer(client versioned.Interfac
 				return client.ClickhouseV1().ClickHouseInstallationTemplates(namespace).Watch(context.TODO(), options)
 			},
 		},
-		&clickhousealtinitycomv1.ClickHouseInstallationTemplate{},
+		&clickhousedbkernelcomv1.ClickHouseInstallationTemplate{},
 		resyncPeriod,
 		indexers,
 	)
@@ -82,7 +82,7 @@ func (f *clickHouseInstallationTemplateInformer) defaultInformer(client versione
 }
 
 func (f *clickHouseInstallationTemplateInformer) Informer() cache.SharedIndexInformer {
-	return f.factory.InformerFor(&clickhousealtinitycomv1.ClickHouseInstallationTemplate{}, f.defaultInformer)
+	return f.factory.InformerFor(&clickhousedbkernelcomv1.ClickHouseInstallationTemplate{}, f.defaultInformer)
 }
 
 func (f *clickHouseInstallationTemplateInformer) Lister() v1.ClickHouseInstallationTemplateLister {

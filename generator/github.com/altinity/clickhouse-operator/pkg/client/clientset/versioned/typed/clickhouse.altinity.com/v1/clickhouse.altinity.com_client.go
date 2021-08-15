@@ -19,8 +19,8 @@ limitations under the License.
 package v1
 
 import (
-	v1 "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
-	"github.com/altinity/clickhouse-operator/pkg/client/clientset/versioned/scheme"
+	v1 "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
+	"github.com/DBKernel/clickhouse-operator/pkg/client/clientset/versioned/scheme"
 	rest "k8s.io/client-go/rest"
 )
 
@@ -31,7 +31,7 @@ type ClickhouseV1Interface interface {
 	ClickHouseOperatorConfigurationsGetter
 }
 
-// ClickhouseV1Client is used to interact with features provided by the clickhouse.altinity.com group.
+// ClickhouseV1Client is used to interact with features provided by the clickhouse.dbkernel.com group.
 type ClickhouseV1Client struct {
 	restClient rest.Interface
 }

@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	. "github.com/altinity/clickhouse-operator/pkg/apis/clickhouse.altinity.com/v1"
+	. "github.com/DBKernel/clickhouse-operator/pkg/apis/clickhouse.dbkernel.com/v1"
 	"gopkg.in/d4l3k/messagediff.v1"
 )
 

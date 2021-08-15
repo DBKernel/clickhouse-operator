@@ -19,8 +19,8 @@ import (
 	"math"
 	"strings"
 
-	"github.com/altinity/clickhouse-operator/pkg/util"
-	"github.com/altinity/clickhouse-operator/pkg/version"
+	"github.com/DBKernel/clickhouse-operator/pkg/util"
+	"github.com/DBKernel/clickhouse-operator/pkg/version"
 )
 
 // fillStatus fills .Status

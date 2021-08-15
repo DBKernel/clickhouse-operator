@@ -28,7 +28,7 @@ import (
 	"github.com/kubernetes-sigs/yaml"
 	metav1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 
-	"github.com/altinity/clickhouse-operator/pkg/util"
+	"github.com/DBKernel/clickhouse-operator/pkg/util"
 )
 
 const (
